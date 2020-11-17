@@ -10,9 +10,7 @@ module.exports = (app) => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      console.log('WTAAAAA');
-
-      res.redirect('/');
+      res.redirect('http://localhost:3000/');
     }
   );
 
@@ -22,6 +20,6 @@ module.exports = (app) => {
 
   app.get('/auth/logout', (req, res) => {
     req.logout();
-    res.redirect('/');
+    res.redirect('http://localhost:3000/');
   });
 };
