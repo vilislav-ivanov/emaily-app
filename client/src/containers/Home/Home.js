@@ -16,18 +16,7 @@ const Home = ({ auth, setAuthUser }) => {
     <h1>Hello there, unknown</h1>
   );
 
-  return (
-    <div>
-      {greetings}
-      <li>
-        <a href="http://localhost:1441/auth/google">Login With Google</a>
-      </li>
-      <br />
-      <li>
-        <a href="http://localhost:1441/auth/logout">Logout</a>
-      </li>
-    </div>
-  );
+  return <div>{greetings}</div>;
 };
 
 const mapStateToProps = ({ auth }) => ({
