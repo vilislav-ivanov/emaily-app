@@ -1,46 +1,48 @@
 import React from 'react';
-import { ElementsConsumer, CardElement } from '@stripe/react-stripe-js';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-import CardSection from './CardSection';
+import CardField from './CardField';
 
-class CheckoutForm extends React.Component {
-  handleSubmit = async (event) => {
+const CheckoutForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (event) => {
+    // Block native form submission.
     event.preventDefault();
 
-    const { stripe, elements } = this.props;
     if (!stripe || !elements) {
+      // Stripe.js has not loaded yet. Make sure to disable
+      // form submission until Stripe.js has loaded.
       return;
     }
 
-    const card = elements.getElement(CardElement);
-    const result = await stripe.createToken(card);
-    if (result.error) {
-      console.log(result.error.message);
+    // Get a reference to a mounted CardElement. Elements knows how
+    // to find your CardElement because there can only ever be one of
+    // each type of element.
+    const cardElement = elements.getElement(CardElement);
+
+    // Use your card Element with other Stripe.js APIs
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log('[error]', error);
     } else {
-      console.log(result.token);
+      console.log('[PaymentMethod]', paymentMethod);
     }
   };
 
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <CardSection />
-          <button disabled={!this.props.stripe} className="btn-pay">
-            Buy Now
-          </button>
-        </form>
-      </div>
-    );
-  }
-}
-
-export default function InjectedCheckoutForm() {
   return (
-    <ElementsConsumer>
-      {({ stripe, elements }) => (
-        <CheckoutForm stripe={stripe} elements={elements} />
-      )}
-    </ElementsConsumer>
+    <form onSubmit={handleSubmit}>
+      <CardField />
+      <button type="submit" disabled={!stripe}>
+        Pay
+      </button>
+    </form>
   );
-}
+};
+
+export default CheckoutForm;
