@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { setAuthUser } from '../../actions';
+import StripeCheckout from '../../components/StripeCheckout/StripeCheckout';
 
 const Home = ({ auth, setAuthUser }) => {
   useEffect(() => {
@@ -16,7 +17,12 @@ const Home = ({ auth, setAuthUser }) => {
     <h1>Hello there, unknown</h1>
   );
 
-  return <div>{greetings}</div>;
+  return (
+    <div>
+      {greetings}
+      <StripeCheckout />
+    </div>
+  );
 };
 
 const mapStateToProps = ({ auth }) => ({

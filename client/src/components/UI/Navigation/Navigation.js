@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -9,9 +9,11 @@ const Navigation = ({ auth }) => {
     </li>
   );
   const userLinks = (
-    <li>
-      <a href="http://localhost:1441/auth/logout">Logout</a>
-    </li>
+    <Fragment>
+      <li>
+        <a href="http://localhost:1441/auth/logout">Logout</a>
+      </li>
+    </Fragment>
   );
   return (
     <nav>
