@@ -16,3 +16,16 @@ export const setAuthUser = () => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const proceedStripeBilling = (token) => async (dispatch) => {
+  try {
+    const res = await axios.post('/api/billing', token);
+
+    dispatch({
+      type: SET_AUTH_USER,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

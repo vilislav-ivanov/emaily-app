@@ -1,9 +1,11 @@
 import React from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { connect } from 'react-redux';
 
 import CardField from './CardField';
+import { proceedStripeBilling } from '../../actions/auth';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ proceedStripeBilling }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -32,6 +34,7 @@ const CheckoutForm = () => {
       console.log('[error]', error);
     } else {
       console.log('[PaymentMethod]', paymentMethod);
+      proceedStripeBilling(paymentMethod.id);
     }
   };
 
@@ -45,4 +48,4 @@ const CheckoutForm = () => {
   );
 };
 
-export default CheckoutForm;
+export default connect(null, { proceedStripeBilling })(CheckoutForm);
