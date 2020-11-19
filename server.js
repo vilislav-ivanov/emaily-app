@@ -7,6 +7,9 @@ const app = express();
 // Initiate user model
 require('./models/User');
 
+// Parse json requests
+app.use(express.json());
+
 // Set up passport and session
 require('./services/passportSession')(app);
 require('./services/passport');
