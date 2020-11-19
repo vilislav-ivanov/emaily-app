@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { setAuthUser } from '../../actions';
-import CheckoutWithStripe from '../../components/CheckoutWithStripe/CheckoutWithStripe';
+import Stripe from '../../components/StripeContainer/StripeContainer';
 
 const Home = ({ auth, setAuthUser }) => {
   useEffect(() => {
@@ -20,7 +20,7 @@ const Home = ({ auth, setAuthUser }) => {
   return (
     <div>
       {greetings}
-      <CheckoutWithStripe />
+      <Stripe />
     </div>
   );
 };

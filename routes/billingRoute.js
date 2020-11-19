@@ -7,24 +7,29 @@ module.exports = (app) => {
     const { token, creditsAmount } = req.body;
     const amount = creditsAmount * 100;
 
-    stripe.charges.create(
-      {
-        amount: amount,
-        currency: 'usd',
-        source: token,
-        description: `Paying for ${creditsAmount} credits(${amount})`,
-      },
-      (err, charge) => {
-        if (err) return console.log(err);
+    const payment = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: 'USD',
+      description: 'Your Company Description',
+      payment_method: token,
+      confirm: true,
+    });
 
-        req.user.credits += creditsAmount;
-        req.user
-          .save()
-          .then((user) => {
-            return res.json({ user });
-          })
-          .catch((err) => console.log(err));
-      }
-    );
+    req.user.credits += creditsAmount;
+    const user = await req.user.save();
+
+    return res.json({ user, payment });
+
+    // stripe.charges.create(
+    //   {
+    //     amount: amount,
+    //     currency: 'usd',
+    //     source: token,
+    //     description: `Paying for ${creditsAmount} credits(${amount})`,
+    //   },
+    //   (err, charge) => {
+    //     if (err) return console.log(err);
+    //   }
+    // );
   });
 };
