@@ -21,7 +21,7 @@ module.exports = (app) => {
         req.user
           .save()
           .then((user) => {
-            return res.json(user);
+            return res.json({ user });
           })
           .catch((err) => console.log(err));
       }

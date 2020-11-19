@@ -17,9 +17,13 @@ export const setAuthUser = () => async (dispatch) => {
   }
 };
 
-export const proceedStripeBilling = (token) => async (dispatch) => {
+export const proceedStripeBilling = (token, creditsAmount) => async (
+  dispatch
+) => {
+  dispatch({ type: SET_AUTH_LOADING });
+
   try {
-    const res = await axios.post('/api/billing', token);
+    const res = await axios.post('/api/billing', { token, creditsAmount });
 
     dispatch({
       type: SET_AUTH_USER,
