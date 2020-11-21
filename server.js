@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const { port, mongoURI } = require('./config/keys');
 const app = express();
 
-// Initiate user model
+// Initiate models
 require('./models/User');
+require('./models/Survey');
 
 // Parse json requests
 app.use(express.json());
