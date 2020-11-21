@@ -39,7 +39,6 @@ const surveySchema = new Schema({
   },
   dateSent: {
     type: Date,
-    default: Date.now(),
   },
   lastResponded: {
     type: Date,
