@@ -2,8 +2,10 @@
 const { stripeSecretKey } = require('../config/keys');
 const stripe = require('stripe')(stripeSecretKey);
 
+const checkIfAuthenticated = require('../middlewares/checkIfAuthenticated');
+
 module.exports = (app) => {
-  app.post('/api/billing', async (req, res) => {
+  app.post('/api/billing', checkIfAuthenticated, async (req, res) => {
     const { token, creditsAmount } = req.body;
     const amount = creditsAmount * 100;
 
@@ -19,17 +21,5 @@ module.exports = (app) => {
     const user = await req.user.save();
 
     return res.json({ user, payment });
-
-    // stripe.charges.create(
-    //   {
-    //     amount: amount,
-    //     currency: 'usd',
-    //     source: token,
-    //     description: `Paying for ${creditsAmount} credits(${amount})`,
-    //   },
-    //   (err, charge) => {
-    //     if (err) return console.log(err);
-    //   }
-    // );
   });
 };
