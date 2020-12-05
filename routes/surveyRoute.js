@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-
 const checkIfAuthenticated = require('../middlewares/checkIfAuthenticated');
+const templateEmail = require('../services/templateEmail');
+const sendMail = require('../services/sendMail');
+
 const Survey = mongoose.model('Survey');
 
 module.exports = (app) => {
@@ -30,6 +32,9 @@ module.exports = (app) => {
       subject: req.body.subject,
       recipients,
     }).save();
+
+    const template = templateEmail(survey.body);
+    sendMail(survey, template);
 
     return res.json({ created: true, survey });
   });
