@@ -25,16 +25,18 @@ module.exports = (app) => {
 
     //TODO validate before create a new survey
 
-    const survey = await new Survey({
+    const survey = new Survey({
       user: req.user._id,
       title: req.body.title,
       body: req.body.body,
       subject: req.body.subject,
       recipients,
-    }).save();
+    });
 
     const template = templateEmail(survey.body);
     sendMail(survey, template);
+
+    await survey.save();
 
     return res.json({ created: true, survey });
   });
