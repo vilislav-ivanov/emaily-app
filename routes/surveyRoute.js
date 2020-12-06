@@ -37,8 +37,11 @@ module.exports = (app) => {
     const template = templateEmail(survey.body);
     sendMail(survey, template);
 
+    req.user.credits -= 1;
+    const user = await req.user.save();
+
     await survey.save();
 
-    return res.json({ created: true, survey });
+    return res.json({ user, survey });
   });
 };
