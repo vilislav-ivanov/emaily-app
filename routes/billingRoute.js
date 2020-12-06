@@ -2,10 +2,10 @@
 const { stripeSecretKey } = require('../config/keys');
 const stripe = require('stripe')(stripeSecretKey);
 
-const checkIfAuthenticated = require('../middlewares/checkIfAuthenticated');
+const requireLogin = require('../middlewares/requireLogin');
 
 module.exports = (app) => {
-  app.post('/api/billing', checkIfAuthenticated, async (req, res) => {
+  app.post('/api/billing', requireLogin, async (req, res) => {
     const { token, creditsAmount } = req.body;
     const amount = creditsAmount * 100;
 

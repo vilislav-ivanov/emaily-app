@@ -5,7 +5,7 @@ module.exports = async ({ subject, recipients }, templateEmail) => {
   sgMail.setApiKey(sendgridKey);
 
   const msg = {
-    to: recipients.map(({ email }) => email).join(','),
+    to: recipients.map(({ email }) => email),
     from: 'vilislav.ivanov91@abv.bg',
     subject,
     html: templateEmail,

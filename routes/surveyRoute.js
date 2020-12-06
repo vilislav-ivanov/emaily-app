@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
-const checkIfAuthenticated = require('../middlewares/checkIfAuthenticated');
+const requireLogin = require('../middlewares/requireLogin');
+const requireCredits = require('../middlewares/requireCredits');
 const templateEmail = require('../services/templateEmail');
 const sendMail = require('../services/sendMail');
 
 const Survey = mongoose.model('Survey');
 
 module.exports = (app) => {
-  app.get('/api/survey', checkIfAuthenticated, async (req, res) => {
+  app.get('/api/survey', requireLogin, async (req, res) => {
     const allSurveys = await Survey.find({ user: req.user._id });
 
     if (allSurveys.length === 0) {
@@ -16,7 +17,7 @@ module.exports = (app) => {
     return res.json({ surveys: allSurveys });
   });
 
-  app.post('/api/survey', checkIfAuthenticated, async (req, res) => {
+  app.post('/api/survey', requireLogin, requireCredits, async (req, res) => {
     const recipients = req.body.recipients.split(',').map((x) => {
       return {
         email: x.trim(),
