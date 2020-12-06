@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from '../components/Layout/Layout';
 import Home from './Home/Home';
 import About from './About/About';
-import Products from './Products/Products';
+import AddCredits from './AddCredits/AddCredits';
 
 const App = () => {
   return (
@@ -14,8 +14,8 @@ const App = () => {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/products">
-            <Products />
+          <Route path="/add-credits">
+            <AddCredits />
           </Route>
           <Route exact path="/">
             <Home />

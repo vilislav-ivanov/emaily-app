@@ -11,6 +11,16 @@ const Navigation = ({ auth }) => {
   const userLinks = (
     <Fragment>
       <li>
+        <Link to="/add-credits" className="">
+          Add Credits
+        </Link>
+      </li>
+      <li>
+        <Link to="/add-credits" className="waves-effect waves-light btn">
+          Credits: 4
+        </Link>
+      </li>
+      <li>
         <a href="http://localhost:1441/auth/logout">Logout</a>
       </li>
     </Fragment>

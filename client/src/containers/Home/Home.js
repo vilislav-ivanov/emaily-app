@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { setAuthUser } from '../../actions';
-import Stripe from '../../components/StripeContainer/StripeContainer';
 
 const Home = ({ auth, setAuthUser }) => {
   useEffect(() => {
@@ -17,12 +16,7 @@ const Home = ({ auth, setAuthUser }) => {
     <h1>Hello there, unknown</h1>
   );
 
-  return (
-    <div>
-      {greetings}
-      <Stripe />
-    </div>
-  );
+  return <div>{greetings}</div>;
 };
 
 const mapStateToProps = ({ auth }) => ({

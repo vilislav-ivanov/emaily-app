@@ -29,7 +29,13 @@ const CheckoutForm = ({ proceedStripeBilling }) => {
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 400 }}>
       <CardElement />
-      <button>Pay</button>
+      <button
+        className="waves-effect waves-light btn-small"
+        style={{ marginTop: '16px' }}
+      >
+        <i class="material-icons right">payment</i>
+        Add Credits
+      </button>
     </form>
   );
 };
