@@ -17,7 +17,7 @@ const Navigation = ({ auth }) => {
       </li>
       <li>
         <Link to="/add-credits" className="waves-effect waves-light btn">
-          Credits: 4
+          Credits: {auth.user ? auth.user.credits : null}
         </Link>
       </li>
       <li>
@@ -31,7 +31,7 @@ const Navigation = ({ auth }) => {
         <Link to="/" className="brand-logo">
           Logo
         </Link>
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <ul id="nav-mobile" className="right">
           {auth.isAuthenticated ? userLinks : guessLinks}
         </ul>
       </div>
