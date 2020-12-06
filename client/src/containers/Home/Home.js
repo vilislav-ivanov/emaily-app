@@ -1,13 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { connect } from 'react-redux';
-import { setAuthUser } from '../../actions';
 
-const Home = ({ auth, setAuthUser }) => {
-  useEffect(() => {
-    setAuthUser();
-  }, [setAuthUser]);
-
+const Home = ({ auth }) => {
   const greetings = auth.loading ? (
     <p>some loading...</p>
   ) : auth.user ? (
@@ -23,4 +18,4 @@ const mapStateToProps = ({ auth }) => ({
   auth,
 });
 
-export default connect(mapStateToProps, { setAuthUser })(Home);
+export default connect(mapStateToProps)(Home);

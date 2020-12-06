@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import { setAuthUser } from '../actions';
 import Layout from '../components/Layout/Layout';
 import Home from './Home/Home';
 import About from './About/About';
 import AddCredits from './AddCredits/AddCredits';
 
-const App = () => {
+const App = ({ setAuthUser }) => {
+  useEffect(() => {
+    setAuthUser();
+  }, [setAuthUser]);
+
   return (
     <BrowserRouter>
       <Layout>
@@ -26,4 +32,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(null, { setAuthUser })(App);
