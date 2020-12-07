@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
+import { createSurvey } from '../../actions';
 import TextInput from '../../components/UI/Form/TextInput';
 
-const AddSurvey = (props) => {
+const AddSurvey = ({ createSurvey }) => {
+  const history = useHistory();
   const [surveyForm, setSurveyForm] = useState({
     title: {
       value: '',
@@ -97,7 +101,15 @@ const AddSurvey = (props) => {
 
   const onSubmitSurvey = (e) => {
     e.preventDefault();
-    console.log('Submitted');
+
+    const surveyData = {
+      title: surveyForm.title.value,
+      subject: surveyForm.subject.value,
+      body: surveyForm.body.value,
+      recipients: surveyForm.recipients.value,
+    };
+
+    createSurvey(surveyData, history);
   };
 
   const validFormField = (field) => {
@@ -170,4 +182,4 @@ const AddSurvey = (props) => {
   );
 };
 
-export default AddSurvey;
+export default connect(null, { createSurvey })(AddSurvey);
