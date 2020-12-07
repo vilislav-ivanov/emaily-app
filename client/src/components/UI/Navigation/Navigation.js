@@ -16,6 +16,11 @@ const Navigation = ({ auth }) => {
         </Link>
       </li>
       <li>
+        <Link to="/add-survey" className="">
+          Add Survey
+        </Link>
+      </li>
+      <li>
         <Link to="/add-credits" className="waves-effect waves-light btn">
           Credits: {auth.user ? auth.user.credits : null}
         </Link>
@@ -28,7 +33,7 @@ const Navigation = ({ auth }) => {
   return (
     <nav>
       <div className="nav-wrapper">
-        <Link to="/" className="brand-logo">
+        <Link to="/" className="left brand-logo">
           Logo
         </Link>
         <ul id="nav-mobile" className="right">

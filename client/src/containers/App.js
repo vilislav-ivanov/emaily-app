@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { setAuthUser } from '../actions';
 import Layout from '../components/Layout/Layout';
 import Home from './Home/Home';
-import About from './About/About';
+import AddSurvey from './AddSurvey/AddSurvey';
 import AddCredits from './AddCredits/AddCredits';
 
 const App = ({ setAuthUser }) => {
@@ -17,8 +17,8 @@ const App = ({ setAuthUser }) => {
     <BrowserRouter>
       <Layout>
         <Switch>
-          <Route path="/about">
-            <About />
+          <Route path="/add-survey">
+            <AddSurvey />
           </Route>
           <Route path="/add-credits">
             <AddCredits />
