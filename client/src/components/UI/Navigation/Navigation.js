@@ -11,13 +11,13 @@ const Navigation = ({ auth }) => {
   const userLinks = (
     <Fragment>
       <li>
-        <Link to="/add-credits" className="">
-          Add Credits
+        <Link to="/create-survey" className="">
+          Add Survey
         </Link>
       </li>
       <li>
-        <Link to="/add-survey" className="">
-          Add Survey
+        <Link to="/surveys" className="">
+          All Surveys
         </Link>
       </li>
       <li>

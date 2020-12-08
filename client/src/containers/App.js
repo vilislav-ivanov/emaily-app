@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { setAuthUser } from '../actions';
 import Layout from '../components/Layout/Layout';
 import Home from './Home/Home';
-import AddSurvey from './AddSurvey/AddSurvey';
+import CreateSurvey from './Survey/CreateSurvey/CreateSurvey';
+import AllSurveys from './Survey/AllSurveys/AllSurveys';
 import AddCredits from './AddCredits/AddCredits';
 
 const App = ({ setAuthUser }) => {
@@ -17,8 +18,11 @@ const App = ({ setAuthUser }) => {
     <BrowserRouter>
       <Layout>
         <Switch>
-          <Route path="/add-survey">
-            <AddSurvey />
+          <Route path="/create-survey">
+            <CreateSurvey />
+          </Route>
+          <Route path="/surveys">
+            <AllSurveys />
           </Route>
           <Route path="/add-credits">
             <AddCredits />

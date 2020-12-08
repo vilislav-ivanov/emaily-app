@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { createSurvey } from '../../actions';
-import TextInput from '../../components/UI/Form/TextInput';
+import { createSurvey } from '../../../actions';
+import TextInput from '../../../components/UI/Form/TextInput';
 
 const AddSurvey = ({ createSurvey }) => {
   const history = useHistory();
