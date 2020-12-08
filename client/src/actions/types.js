@@ -2,4 +2,5 @@ export const SET_AUTH_USER = 'SET_AUTH_USER';
 export const SET_AUTH_LOADING = 'SET_AUTH_LOADING';
 
 export const SET_ALL_SURVEYS = 'SET_ALL_SURVEYS';
+export const SET_SINGLE_SURVEY = 'SET_SINGLE_SURVEY';
 export const LOADING_SURVEY = 'LOADING_SURVEY';

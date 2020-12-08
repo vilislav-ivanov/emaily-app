@@ -4,6 +4,7 @@ import {
   SET_AUTH_USER,
   SET_AUTH_LOADING,
   SET_ALL_SURVEYS,
+  SET_SINGLE_SURVEY,
   LOADING_SURVEY,
 } from './types';
 
@@ -54,5 +55,24 @@ export const getSurveys = () => async (dispatch) => {
       payload: [],
     });
     console.log(error);
+  }
+};
+
+export const getSingleSurvey = (surveyId) => async (dispatch) => {
+  dispatch({
+    type: LOADING_SURVEY,
+  });
+
+  try {
+    const response = await axios.get('/api/survey/' + surveyId);
+    dispatch({
+      type: SET_SINGLE_SURVEY,
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: SET_SINGLE_SURVEY,
+      payload: {},
+    });
   }
 };

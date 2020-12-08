@@ -1,4 +1,8 @@
-import { SET_ALL_SURVEYS, LOADING_SURVEY } from '../actions/types';
+import {
+  SET_ALL_SURVEYS,
+  SET_SINGLE_SURVEY,
+  LOADING_SURVEY,
+} from '../actions/types';
 
 const initialState = {
   survey: null,
@@ -12,6 +16,13 @@ const surveyReducer = (state = initialState, action) => {
       return {
         ...state,
         surveys: action.payload,
+        loading: false,
+      };
+    }
+    case SET_SINGLE_SURVEY: {
+      return {
+        ...state,
+        survey: action.payload,
         loading: false,
       };
     }

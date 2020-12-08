@@ -1,2 +1,2 @@
 export { setAuthUser } from './auth';
-export { createSurvey, getSurveys } from './survey';
+export { createSurvey, getSurveys, getSingleSurvey } from './survey';

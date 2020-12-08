@@ -8,6 +8,7 @@ import Home from './Home/Home';
 import CreateSurvey from './Survey/CreateSurvey/CreateSurvey';
 import AllSurveys from './Survey/AllSurveys/AllSurveys';
 import AddCredits from './AddCredits/AddCredits';
+import Survey from './Survey/Survey';
 
 const App = ({ setAuthUser }) => {
   useEffect(() => {
@@ -23,6 +24,9 @@ const App = ({ setAuthUser }) => {
           </Route>
           <Route path="/surveys">
             <AllSurveys />
+          </Route>
+          <Route path="/survey/:surveyId">
+            <Survey />
           </Route>
           <Route path="/add-credits">
             <AddCredits />
