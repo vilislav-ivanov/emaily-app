@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { getSurveys } from '../../../actions';
+import SurveyItem from '../SurveyItem/SurveyItem';
 
 const AllSurveys = ({ getSurveys, allSurveys, loading }) => {
   useEffect(() => {
@@ -16,8 +17,8 @@ const AllSurveys = ({ getSurveys, allSurveys, loading }) => {
   } else if (!loading && allSurveys.length === 0) {
     surveysElements = 'No surveys';
   } else {
-    surveysElements = allSurveys.map((survey) => (
-      <h3 key={survey.title}>{survey.title}</h3>
+    surveysElements = allSurveys.map(({ _id, title, subject }) => (
+      <SurveyItem key={_id} title={title} subject={subject} id={_id} />
     ));
   }
 
