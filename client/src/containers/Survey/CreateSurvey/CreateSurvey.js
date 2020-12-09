@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
-import { createSurvey } from '../../../actions';
+import { createSurvey, getSingleSurvey } from '../../../actions';
 import TextInput from '../../../components/UI/Form/TextInput';
 
-const AddSurvey = ({ createSurvey }) => {
+const AddSurvey = ({
+  createSurvey,
+  getSingleSurvey,
+  survey,
+  editing,
+  loading,
+}) => {
   const history = useHistory();
+  const { surveyId } = useParams();
+
   const [surveyForm, setSurveyForm] = useState({
     title: {
       value: '',
@@ -73,6 +81,65 @@ const AddSurvey = ({ createSurvey }) => {
   });
 
   const [isFormValid, setFormValidity] = useState(false);
+
+  useEffect(() => {
+    if (editing) {
+      getSingleSurvey(surveyId);
+    }
+    /*eslint-disable */
+  }, []); /*eslint-enable */
+
+  useEffect(() => {
+    if (editing && survey) {
+      populateForm(survey);
+    }
+    /*eslint-disable */
+  }, [survey]); /*eslint-enable */
+
+  const populateForm = (survey) => {
+    console.log(survey);
+
+    const updatedSurveyForm = {
+      title: {
+        ...surveyForm.title,
+        value: survey.title,
+        validation: {
+          ...surveyForm.title.validation,
+          valid: true,
+          touched: true,
+        },
+      },
+      subject: {
+        ...surveyForm.subject,
+        value: survey.subject,
+        validation: {
+          ...surveyForm.subject.validation,
+          valid: true,
+          touched: true,
+        },
+      },
+      recipients: {
+        ...surveyForm.recipients,
+        value: survey.recipients.map(({ email }) => email).join(','),
+        validation: {
+          ...surveyForm.recipients.validation,
+          valid: true,
+          touched: true,
+        },
+      },
+      body: {
+        ...surveyForm.body,
+        value: survey.body,
+        validation: {
+          ...surveyForm.body.validation,
+          valid: true,
+          touched: true,
+        },
+      },
+    };
+
+    setSurveyForm(updatedSurveyForm);
+  };
 
   const onInputChange = (name, e) => {
     const value = e.target.value;
@@ -162,24 +229,40 @@ const AddSurvey = ({ createSurvey }) => {
         {...atributes}
         valid={validFormField(name)}
         touched={touched}
+        active={editing}
         onChange={(e) => onInputChange(name, e)}
         errorMessage={errorMessage}
       />
     );
   });
 
-  return (
-    <form onSubmit={onSubmitSurvey}>
-      {formInputs}
-      <button
-        disabled={!isFormValid}
-        className="waves-effect waves-light btn"
-        onClick={onSubmitSurvey}
-      >
-        Submit Survey
-      </button>
-    </form>
-  );
+  let formDisplay;
+
+  if (editing && (!survey || loading)) {
+    formDisplay = <h1>Loading...</h1>;
+  } else {
+    formDisplay = (
+      <form onSubmit={onSubmitSurvey}>
+        {formInputs}
+        <button
+          disabled={!isFormValid}
+          className="waves-effect waves-light btn"
+          onClick={onSubmitSurvey}
+        >
+          {editing ? 'Edit Survey' : 'Submit Survey'}
+        </button>
+      </form>
+    );
+  }
+
+  return formDisplay;
 };
 
-export default connect(null, { createSurvey })(AddSurvey);
+const mapStateToProps = (state) => ({
+  survey: state.survey.survey,
+  loading: state.survey.loading,
+});
+
+export default connect(mapStateToProps, { createSurvey, getSingleSurvey })(
+  AddSurvey
+);

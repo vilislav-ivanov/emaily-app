@@ -10,6 +10,7 @@ const TextInput = ({
   valid,
   touched,
   errorMessage,
+  active,
 }) => {
   let inputElement = null;
 
@@ -28,7 +29,7 @@ const TextInput = ({
               id={name}
               onChange={onChange}
             />
-            <label htmlFor={name}>
+            <label htmlFor={name} className={active ? 'active' : 'teste'}>
               {label} {valid ? null : errorMessage}
             </label>
           </div>
@@ -50,7 +51,7 @@ const TextInput = ({
               name={name}
               onChange={onChange}
             />
-            <label htmlFor={name}>
+            <label htmlFor={name} className={active ? 'active' : 'teste'}>
               {label} {valid ? null : errorMessage}
             </label>
           </div>

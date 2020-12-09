@@ -20,10 +20,13 @@ const App = ({ setAuthUser }) => {
       <Layout>
         <Switch>
           <Route path="/create-survey">
-            <CreateSurvey />
+            <CreateSurvey editing={false} />
           </Route>
           <Route path="/surveys">
             <AllSurveys />
+          </Route>
+          <Route path="/survey/edit/:surveyId">
+            <CreateSurvey editing={true} />
           </Route>
           <Route path="/survey/:surveyId">
             <Survey />
