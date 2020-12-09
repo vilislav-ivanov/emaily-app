@@ -33,6 +33,10 @@ const surveySchema = new Schema({
     ],
     default: [],
   },
+  activated: {
+    type: Boolean,
+    default: false,
+  },
   yes: {
     type: Number,
     default: 0,

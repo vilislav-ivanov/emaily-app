@@ -50,9 +50,6 @@ module.exports = (app) => {
       recipients,
     });
 
-    const template = templateEmail(survey.body);
-    sendMail(survey, template);
-
     req.user.credits -= 1;
 
     try {
@@ -89,6 +86,25 @@ module.exports = (app) => {
       } catch (error) {
         return res.status(500);
       }
+    }
+  );
+
+  app.post(
+    '/api/survey/activate/:surveyId',
+    requireLogin,
+    requireUserOwner,
+    async (req, res) => {
+      try {
+        const template = templateEmail(req.survey.body);
+        sendMail(req.survey, template);
+
+        const survey = await Survey.findOneAndUpdate(
+          { _id: req.params.surveyId },
+          { activated: true },
+          { new: true }
+        );
+        return res.json({ survey });
+      } catch (error) {}
     }
   );
 
