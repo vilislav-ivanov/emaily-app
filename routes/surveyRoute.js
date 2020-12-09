@@ -103,8 +103,13 @@ module.exports = (app) => {
           { activated: true },
           { new: true }
         );
-        return res.json({ survey });
-      } catch (error) {}
+
+        const surveys = await Survey.find({ user: req.user._id });
+
+        return res.json({ survey, surveys });
+      } catch (error) {
+        return res.status(500);
+      }
     }
   );
 
@@ -115,7 +120,10 @@ module.exports = (app) => {
     async (req, res) => {
       try {
         await Survey.deleteOne({ _id: req.params.surveyId });
-        return res.json({ deleted: true });
+
+        const surveys = await Survey.find({ user: req.user._id });
+
+        return res.json({ deleted: true, surveys });
       } catch (error) {
         return res.status(500);
       }
