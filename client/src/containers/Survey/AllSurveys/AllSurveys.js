@@ -1,10 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { getSurveys } from '../../../actions';
+import { getSurveys, activateSurvey, deleteSurvey } from '../../../actions';
 import SurveyItem from '../SurveyItem/SurveyItem';
 
-const AllSurveys = ({ getSurveys, allSurveys, loading }) => {
+const AllSurveys = ({
+  getSurveys,
+  allSurveys,
+  loading,
+  activateSurvey,
+  deleteSurvey,
+}) => {
   useEffect(() => {
     getSurveys();
     /*eslint-disable */
@@ -17,8 +23,16 @@ const AllSurveys = ({ getSurveys, allSurveys, loading }) => {
   } else if (!loading && allSurveys.length === 0) {
     surveysElements = 'No surveys';
   } else {
-    surveysElements = allSurveys.map(({ _id, title, subject }) => (
-      <SurveyItem key={_id} title={title} subject={subject} id={_id} />
+    surveysElements = allSurveys.map(({ _id, title, subject, activated }) => (
+      <SurveyItem
+        key={_id}
+        title={title}
+        subject={subject}
+        id={_id}
+        activated={activated}
+        onDeleteClicked={() => deleteSurvey(_id)}
+        onActivateClicked={() => activateSurvey(_id)}
+      />
     ));
   }
 
@@ -30,4 +44,8 @@ const mapStateToProps = (state) => ({
   loading: state.survey.loading,
 });
 
-export default connect(mapStateToProps, { getSurveys })(AllSurveys);
+export default connect(mapStateToProps, {
+  getSurveys,
+  activateSurvey,
+  deleteSurvey,
+})(AllSurveys);

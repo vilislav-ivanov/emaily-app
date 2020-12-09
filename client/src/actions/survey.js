@@ -76,3 +76,43 @@ export const getSingleSurvey = (surveyId) => async (dispatch) => {
     });
   }
 };
+
+export const activateSurvey = (id) => async (dispatch) => {
+  dispatch({
+    type: LOADING_SURVEY,
+  });
+
+  try {
+    const response = await axios.post('/api/survey/activate/' + id);
+
+    dispatch({
+      type: SET_ALL_SURVEYS,
+      payload: response.data.surveys
+    })
+  } catch (error) {
+    dispatch({
+      type: SET_ALL_SURVEYS,
+      payload: [],
+    });
+  }
+}
+
+export const deleteSurvey = (id) => async (dispatch) => {
+  dispatch({
+    type: LOADING_SURVEY,
+  });
+
+  try {
+    const response = await axios.delete('/api/survey/' + id);
+
+    dispatch({
+      type: SET_ALL_SURVEYS,
+      payload: response.data.surveys
+    })
+  } catch (error) {
+    dispatch({
+      type: SET_ALL_SURVEYS,
+      payload: [],
+    });
+  }
+}
